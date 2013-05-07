@@ -205,7 +205,7 @@ class Writer
 		}
 		for (field in c.fields)
 		{
-			trace("field="+field);
+			//trace("field="+field);
 			switch(field.kind)
 			{
 				case FFun( f ):
@@ -986,20 +986,20 @@ class Writer
 	
 	function isProtected(kwds : Array<String>)
 	{
-		trace("is Protected?");
+		//trace("is Protected?");
 		return Lambda.has(kwds, "protected");
 	}
 
 	function isGetter(kwds : Array<String>)
 	{  
-		trace("----------"+kwds);
-		return false;//Lambda.has(kwds, "get");
+		//trace("----------"+kwds);
+		return Lambda.has(kwds, "get");
 	}
 	
 	function isSetter(kwds : Array<String>)
-	{trace("----------"+kwds);
+	{//trace("----------"+kwds);
 		
-		return false;//Lambda.has(kwds, "set");
+		return Lambda.has(kwds, "set");
 	}
 	
 	function tstring(t : T, isNativeGetSet:Bool=false)

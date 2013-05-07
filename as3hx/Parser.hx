@@ -540,7 +540,7 @@ class Parser {
 			//kwds = kwds.slice(1);
 			kwds.push(name);
 			name = id();
-			trace("hello");
+			//trace("hello");
 			
 		}
 		var f = parseFun();
