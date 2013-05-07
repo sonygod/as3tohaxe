@@ -132,10 +132,15 @@ class As3ToHaxe
 		s = quickRegR(s, "import msignal.Signal1;", "import msignal.Signal;");
 		s = quickRegR(s, ": EventSignal", ": EventSignal<Dynamic,Dynamic>");
 		s = quickRegR(s, ": Signal1", ": Signal1<Dynamic>");
+		s = quickRegR(s, "import msignal.Signal0", "import msignal.Signal");
         s = quickRegR(s, "sex1", "set");
 		s = quickRegR(s, "gex1", "get");
-		s = quickRegR(s, "int\\(([a-zA-Z0-9\\+\\- \\*\\/]+)\\)", "Std.int($1)");
+		s = quickRegR(s, "int\\(([a-zA-Z0-9\\+\\- \\*\\/\\.\\_]+)\\)", "Std.int($1)");
 		s = quickRegR(s, "static @:isVar", " @:isVar static");
+		s = quickRegR(s, "import flash.net.NavigateToURL;", "");
+		s = quickRegR(s, ": Function", ": Dynamic");
+		s = quickRegR(s, "getTimer()", "flash.Lib.getTimer()");
+		s = quickRegR(s, "import flash.utils.GetTimer;", "");
 		  // s = quickRegR(s, "static public var", "static inline var");
         var o = sys.io.File.write(toFile, true);
         o.writeString(s);
