@@ -195,9 +195,11 @@ class Writer
 					ret : t,
 					sta : stat,
 					pub : false,
+					isVar:false,
 				};
 				p.push(property);
 				h.set(name, property);
+				
 			}
 			return property;
 		}
@@ -213,25 +215,32 @@ class Writer
 						var property = getOrCreateProperty(field.name, f.ret, isStatic(field.kwds));
 						if (isPublic(field.kwds))
 						{
-							property.get = cfg.makeGetterName(field.name);
-							property.pub = true;
+							field.kwds = field.kwds.slice(1);
+							property.get = "get";//cfg.makeGetterName(field.name);
+							property.isVar = true;
 						} else {
 							property.get = cfg.makeGetterName(field.name);
+							property.pub = false;
 						}
+						
 					} else if (isSetter(field.kwds)) {
 						var property = getOrCreateProperty(field.name, f.args[0].t, isStatic(field.kwds));
 						if (isPublic(field.kwds))
 						{
-							property.set = cfg.makeSetterName(field.name);
-							property.pub = true;
+							property.set = "set";//cfg.makeSetterName(field.name);
+							field.kwds = field.kwds.slice(1);
+								property.isVar = true;
 						} else {
 							property.set = cfg.makeSetterName(field.name);
+							property.pub = false;
 						}
 					}
 				default:
 					continue;
 			}
 		}
+		
+		
 		if(cfg.getterSetterStyle == "haxe" || cfg.getterSetterStyle == "combined") {
 			for (property in p)
 			{
@@ -242,6 +251,8 @@ class Writer
 					write("static ");
 				if (property.pub)
 					write("public ");
+					if (property.isVar)
+					write("@:isVar public ");
 				write("var " + property.name + "(" + property.get + ", " + property.set + ")");
 				writeVarType(property.ret);
 				if(cfg.getterSetterStyle == "combined")
@@ -312,6 +323,8 @@ class Writer
 				} else {
 					var ret = f.ret;
 					var name = if (isGetter(field.kwds)) {
+						
+						//trace("cfg.makeGetterName(field.name)" + cfg.makeGetterName(field.name));
 						cfg.makeGetterName(field.name); //"get" + ucfirst(field.name);
 					} else if (isSetter(field.kwds)) {
 						ret = f.args[0].t;
@@ -319,6 +332,8 @@ class Writer
 					} else {
 						field.name;
 					}
+					
+					
 					if(isGetter(field.kwds) || isSetter(field.kwds)) {
 						// write flash native
 						if( cfg.getterSetterStyle == "flash" || cfg.getterSetterStyle == "combined") {
@@ -969,16 +984,19 @@ class Writer
 	
 	function isProtected(kwds : Array<String>)
 	{
+		trace("is Protected?");
 		return Lambda.has(kwds, "protected");
 	}
 
 	function isGetter(kwds : Array<String>)
-	{
+	{  
+		
 		return Lambda.has(kwds, "get");
 	}
 	
 	function isSetter(kwds : Array<String>)
 	{
+		
 		return Lambda.has(kwds, "set");
 	}
 	

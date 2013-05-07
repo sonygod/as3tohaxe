@@ -113,6 +113,7 @@ class Parser {
 
 	public function parseString( s : String ) {
 		line = 1;
+
 		return parse( new haxe.io.StringInput(s) );
 	}
 
@@ -525,12 +526,19 @@ class Parser {
 	function parseClassFun(kwds:Array<String>,meta,comments) : ClassField {
 		#if debug trace("parseClassFun()"); #end
 		var name = id();
-		if( name == "get" || name == "set" ) {
+		if ( name == "get" || name == "set" ) {
+			
+			
+			//kwds = kwds.slice(1);
 			kwds.push(name);
 			name = id();
+			trace("hello");
+			
 		}
 		var f = parseFun();
 		end();
+		
+		
 		return {
 			comments : comments,
 			kwds : kwds,

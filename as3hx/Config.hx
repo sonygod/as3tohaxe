@@ -99,8 +99,11 @@ class Config {
 	 * using the getterMethods template
 	 **/
 	public function makeGetterName(id:String) :String {
+		trace("recall" + id);
 		var s = getterMethods.replace("%I", ucfirst(id));
 		s = s.replace("%i", id);
+		
+		
 		return s;
 	}
 
@@ -116,7 +119,8 @@ class Config {
 
 	static function ucfirst(s : String)
 	{
-		return s.substr(0, 1).toUpperCase() + s.substr(1);
+		
+		return "_"+s;//s.substr(0, 1).toUpperCase() + s.substr(1);
 	}
 
 	function processDefaultConfig() {
@@ -278,8 +282,8 @@ class Config {
 	<vectorToArray value="false" />
 	<guessCasts value="true" />
 	<functionToDynamic value="false" />
-	<getterMethods value="get%I" />
-	<setterMethods value="set%I" />
+	<getterMethods value="get_%I" />
+	<setterMethods value="set_%I" />
 	<!-- Style of getter and setter output. haxe, flash or combined -->
 	<getterSetterStyle value="haxe" />
 </as3hx>';

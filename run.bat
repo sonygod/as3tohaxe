@@ -1,3 +1,3 @@
 @echo off
-neko as3hx.n test haxe
+neko as3hx.n test2 haxe
 pause
