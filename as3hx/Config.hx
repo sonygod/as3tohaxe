@@ -99,7 +99,7 @@ class Config {
 	 * using the getterMethods template
 	 **/
 	public function makeGetterName(id:String) :String {
-		trace("recall" + id);
+		
 		var s = getterMethods.replace("%I", ucfirst(id));
 		s = s.replace("%i", id);
 		

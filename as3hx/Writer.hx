@@ -157,7 +157,7 @@ class Writer
 		for (i in c.implement)
 			parents.push("implements " + tstring(i));
 		if(parents.length > 0)
-			buf.add(" " + parents.join(", "));
+			buf.add(" " + parents.join("  "));
 		buf.add(openb());
 		writeLine(buf.toString());
 		lvl++;
@@ -598,7 +598,7 @@ class Writer
 							writeExpr(e1);
 							write(", ");
 							writeExpr(e2);
-							write(") catch(e) null");
+							write(") catch(e:Dynamic) null");
 						}
 					default:
 						throw "Unexpected " + Std.string(e2);

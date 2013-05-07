@@ -31,6 +31,7 @@ class Run {
 				var content = sys.io.File.getContent(file);
 				var program = try p.parseString(content) catch( e : as3hx.Parser.Error ) {
 					#if macro
+					trace("marco?");
 					neko.io.File.stderr().writeString(file+":"+p.line+": "+errorString(e)+"\n");
 					#end
 					neko.Lib.rethrow("In " + file + "("+p.line+") : " + errorString(e));

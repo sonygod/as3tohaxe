@@ -1171,7 +1171,7 @@ class Parser {
 			}
 			t = token();
 		}
-		trace("t="+t);
+	
 		return switch( t ) {
 		case TId(i): #if debug trace("\t-> Got " + i); #end i;
 		default: unexpected(t);
