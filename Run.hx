@@ -40,6 +40,7 @@ class Run {
 				var name = out + "/" + Writer.properCase(f.substr(0, -3),true) + ".hx";
 				neko.Lib.println(name);
 				var fw = File.write(name, false);
+				
 				warnings.set(name, writer.process(program, fw));
 				fw.close();
 			}

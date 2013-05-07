@@ -111,10 +111,18 @@ class Parser {
 		no_comments = false;
 	}
 
+	 public  function quickRegR(str:String, reg:String, rep:String, ?regOpt:String = "g"):String
+    {
+        return new EReg(reg, regOpt).replace(str, rep);
+    }
 	public function parseString( s : String ) {
 		line = 1;
-
-		return parse( new haxe.io.StringInput(s) );
+        s = quickRegR(s, "function set[ ]*\\(", "function sex1(");
+		s = quickRegR(s, "function get[ ]*\\(", "function gex1(");
+		
+		var value = parse( new haxe.io.StringInput(s) );
+	
+		return value;
 	}
 
 	public function parse( s : haxe.io.Input ) {
@@ -1163,6 +1171,7 @@ class Parser {
 			}
 			t = token();
 		}
+		trace("t="+t);
 		return switch( t ) {
 		case TId(i): #if debug trace("\t-> Got " + i); #end i;
 		default: unexpected(t);

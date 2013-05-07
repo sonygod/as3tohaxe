@@ -205,6 +205,7 @@ class Writer
 		}
 		for (field in c.fields)
 		{
+			trace("field="+field);
 			switch(field.kind)
 			{
 				case FFun( f ):
@@ -212,6 +213,7 @@ class Writer
 						continue;
 					if (isGetter(field.kwds))
 					{
+						
 						var property = getOrCreateProperty(field.name, f.ret, isStatic(field.kwds));
 						if (isPublic(field.kwds))
 						{
@@ -990,14 +992,14 @@ class Writer
 
 	function isGetter(kwds : Array<String>)
 	{  
-		
-		return Lambda.has(kwds, "get");
+		trace("----------"+kwds);
+		return false;//Lambda.has(kwds, "get");
 	}
 	
 	function isSetter(kwds : Array<String>)
-	{
+	{trace("----------"+kwds);
 		
-		return Lambda.has(kwds, "set");
+		return false;//Lambda.has(kwds, "set");
 	}
 	
 	function tstring(t : T, isNativeGetSet:Bool=false)
