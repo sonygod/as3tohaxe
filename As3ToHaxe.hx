@@ -128,7 +128,9 @@ class As3ToHaxe
         s = quickRegR(s,"for\\(var ([a-zA-Z0-9]+) \\: ([a-zA-Z0-9]+) in", "for($1 in ");
        
         s = quickRegR(s, "\\*\\/;", "*/");
-		
+		//s = quickRegR(s, "\\bp\\.x\\b", "int(p.x)");
+		//s = quickRegR(s, "\\bp\\.y\\b", "int(p.y)");
+		//s = quickRegR(s, "new BitmapData\\(rect.width, rect.height, true, 0\\)", "new BitmapData(int(rect.width), int(rect.height), true, 0)");
 		s = quickRegR(s, "import msignal.Signal1;", "import msignal.Signal;");
 		s = quickRegR(s, ": EventSignal", ": EventSignal<Dynamic,Dynamic>");
 		s = quickRegR(s, ": Signal1", ": Signal1<Dynamic>");
@@ -139,9 +141,18 @@ class As3ToHaxe
 		s = quickRegR(s, "static @:isVar", " @:isVar static");
 		s = quickRegR(s, "import flash.net.NavigateToURL;", "");
 		s = quickRegR(s, ": Function", ": Dynamic");
-		s = quickRegR(s, "getTimer()", "flash.Lib.getTimer()");
+		s = quickRegR(s, "getTimer\\(\\)", "flash.Lib.getTimer()");
 		s = quickRegR(s, "import flash.utils.GetTimer;", "");
+		s = quickRegR(s, "([a-zA-Z0-9]+)\\.toString\\(\\)", "Std.string($1)");
+		
+		s = quickRegR(s, "new Error", "new flash.errors.Error");
+		s = quickRegR(s, "/\\*\\* WARNING ", ";/** WARNING ");
+		s = quickRegR(s, "name : aKeyName", "name : aKeyName,");
+		s = quickRegR(s, "import Lambda;", "using Lambda;");
+		s = quickRegR(s, "catch\\(e : Error\\)", "catch(e:flash.errors.Error)");
+		
 		  // s = quickRegR(s, "static public var", "static inline var");
+		  trace("path"+toFile);
         var o = sys.io.File.write(toFile, true);
         o.writeString(s);
         o.close();
@@ -213,6 +224,7 @@ class As3ToHaxe
     
     public function recurse(path:String)
     {
+		trace("path"+path);
         var dir = FileSystem.readDirectory(path);
         
         for (item in dir)

@@ -119,6 +119,8 @@ class Parser {
 		line = 1;
         s = quickRegR(s, "function set[ ]*\\(", "function sex1(");
 		s = quickRegR(s, "function get[ ]*\\(", "function gex1(");
+		s = quickRegR(s, "internal var", "public var");
+		s = quickRegR(s, "internal function", "public function");
 		
 		var value = parse( new haxe.io.StringInput(s) );
 	

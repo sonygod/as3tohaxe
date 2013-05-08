@@ -1,4 +1,4 @@
 @echo off
-neko as3hx.n E:\work\client1.3\Anthill-Framework\src D:\testonlyhaxedffd\src\
-neko As3ToHaxe.n -from D:\testonlyhaxedffd\src\ -to D:\testonlyhaxedffd\src\
+neko as3hx.n E:\work\client1.3\Anthill-Framework\src E:\work\client1.3\Anthill-Framework\haxe\src
+neko As3ToHaxe.n -from E:\work\client1.3\Anthill-Framework\haxe\src -to E:\work\client1.3\Anthill-Framework\haxe\src
 pause

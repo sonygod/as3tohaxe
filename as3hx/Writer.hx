@@ -651,7 +651,7 @@ class Writer
 							case "Number":
 								write("Std.parseFloat(");
 								writeExpr(params[0]);
-								write(") /* WARNING check type */");
+								write("); /* WARNING check type */");
 							case "String":
 								write("Std.string(");
 								writeExpr(params[0]);
